@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Dashboard\GovernorateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +20,18 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'prefix' => "dashboard/v1/",
-        "middleware" => ["api"],
+        "middleware" => ["auth:sanctum"],
     ],
     function () {
+        /* start governorate*/
+        Route::controller(GovernorateController::class)->group(function () {
+            Route::post("store_governorate","store_governorate");
+            Route::post("update_governorate","update_governorate");
+            Route::post("fetch_governorates","fetch_governorates");
+            Route::post("show_governorate","show_governorate");
+            Route::post("delete_governorate","delete_governorate");
+        });
+        /* end governorate */
     });
 
 
