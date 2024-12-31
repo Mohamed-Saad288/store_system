@@ -11,4 +11,6 @@ class Governorate extends Model
     use HasFactory , SearchTrait;
     protected $fillable = ["name"];
     protected $searchable = ["name"];
+
+
 }

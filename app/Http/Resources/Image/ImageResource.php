@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Governorate;
+namespace App\Http\Resources\Image;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GovernorateResource extends JsonResource
+class ImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,7 @@ class GovernorateResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-           "id" => $this->id,
-           "name" => $this->name ?? null,
+            "image" => $this->imageLink,
         ];
     }
 }
