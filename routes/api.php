@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+ //  Admin Routes
+Route::group(
+    [
+        'prefix' => "dashboard/v1/",
+        "middleware" => ["api"],
+    ],
+    function () {
+    });
+
+
+/* Start Login */
+    Route::post("dashboard/v1/login", [AuthController::class, "login"])->name("login");
+/* End Login */
