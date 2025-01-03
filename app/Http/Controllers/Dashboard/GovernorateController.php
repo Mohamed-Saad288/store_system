@@ -16,24 +16,25 @@ use Illuminate\Http\Request;
 
 class GovernorateController extends Controller
 {
+    public function __construct(protected GovernorateService $governorate_service){}
     public function fetch_governorates(FetchRequest $request)
     {
-        return GovernorateService::fetch($request);
+        return $this->governorate_service->fetch($request);
     }
     public function show_governorate(GovernorateRequest $request)
     {
-        return GovernorateService::show($request);
+        return $this->governorate_service->show($request);
     }
     public function store_governorate(StoreGovernorateRequest $request)
     {
-        return GovernorateService::store($request);
+        return $this->governorate_service->store($request);
     }
     public function update_governorate(UpdateGovernorateRequest $request)
     {
-        return GovernorateService::update($request);
+        return $this->governorate_service->update($request);
     }
     public function delete_governorate(GovernorateRequest $request)
     {
-        return GovernorateService::delete($request);
+        return $this->governorate_service->delete($request);
     }
 }

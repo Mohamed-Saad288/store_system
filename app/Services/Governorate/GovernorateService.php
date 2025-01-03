@@ -15,7 +15,7 @@ class GovernorateService
 {
     use ResponseTrait;
 
-    public static function fetch(FetchRequest $request)
+    public function fetch(FetchRequest $request)
     {
         $data = $request->validated();
         try {
@@ -32,7 +32,7 @@ class GovernorateService
         }
     }
 
-    public static function show(GovernorateRequest $request)
+    public function show(GovernorateRequest $request)
     {
         $data = $request->validated();
         try {
@@ -49,7 +49,7 @@ class GovernorateService
             return $exception->getMessage();
         }
     }
-    public static function store(StoreGovernorateRequest $request)
+    public function store(StoreGovernorateRequest $request)
     {
         $data = $request->validated();
         try{
@@ -64,7 +64,7 @@ class GovernorateService
             return $exception->getMessage();
         }
     }
-    public static function update(UpdateGovernorateRequest $request)
+    public function update(UpdateGovernorateRequest $request)
     {
         $data = $request->validated();
         try {
@@ -84,7 +84,7 @@ class GovernorateService
             return $exception->getMessage();
         }
     }
-    public static function delete(GovernorateRequest $request)
+    public function delete(GovernorateRequest $request)
     {
         $data = $request->validated();
         try {
