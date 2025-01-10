@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Governorate extends Model
 {
     use HasFactory , SearchTrait;
-    protected $fillable = ["name"];
+    protected $fillable = ["name","price"];
     protected $searchable = ["name"];
 
 }

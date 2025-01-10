@@ -71,6 +71,7 @@ class GovernorateService
             $governorate = Governorate::find($data["governorate_id"]);
              $governorate->update([
                 "name" => $data["name"],
+                 "price" => $data["price"]
             ]);
             if ($governorate)
             {

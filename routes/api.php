@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\GovernorateController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -17,12 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* Start Login */
+Route::post("dashboard/v1/login", [AuthController::class, "login"])->name("login");
+/* End Login */
 
  //  Admin Routes
 Route::group(
     [
         'prefix' => "dashboard/v1/",
-        "middleware" => ["api"],
+        "middleware" => ["auth:sanctum"],
     ],
 
 
@@ -58,9 +62,31 @@ Route::group(
             Route::post("delete_product","delete_product");
         });
         /* end product */
+
+        /* start order*/
+        Route::controller(App\Http\Controllers\Dashboard\OrderController::class)->group(function () {
+            Route::post("update_order","update_order");
+            Route::post("fetch_orders","fetch_orders");
+            Route::post("show_order","show_order");
+            Route::post("delete_order","delete_order");
+        });
+        /* end order */
     });
 
 
-/* Start Login */
-    Route::post("dashboard/v1/login", [AuthController::class, "login"])->name("login");
-/* End Login */
+
+//  User Routes
+Route::group(
+    [
+        'prefix' => "website/v1/",
+        "middleware" => ["api"],
+    ],
+    function () {
+
+        /* start order*/
+        Route::controller(App\Http\Controllers\Website\OrderController::class)->group(function () {
+            Route::post("store_order","store_order");
+        });
+        /* end order */
+
+    });

@@ -31,7 +31,7 @@ class UpdateProductRequest extends FormRequest
             "price_before_discount" => "nullable|numeric",
             "section" => "nullable|string|max:255",
             "status" => ["nullable",new Enum(ProductStatusEnum::class)],
-            "code" => "nullable|string|max:255|unique:products,code",
+            "code" => "nullable|string|max:255",
             "product_descriptions" => "nullable|array",
             "product_descriptions.*.description" => "nullable|string",
             "product_features" => "nullable|array",

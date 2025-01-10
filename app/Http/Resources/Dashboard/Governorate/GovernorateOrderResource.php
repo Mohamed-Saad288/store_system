@@ -5,7 +5,7 @@ namespace App\Http\Resources\Dashboard\Governorate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GovernorateResource extends JsonResource
+class GovernorateOrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,6 @@ class GovernorateResource extends JsonResource
         return [
            "id" => $this->id,
            "name" => $this->name ?? null,
-            "price" => $this->price ?? null,
         ];
     }
 }

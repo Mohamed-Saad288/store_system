@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Resources\Dashboard\Governorate;
+namespace App\Http\Resources\Dashboard\Product;
 
+use App\Enums\ProductStatusEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Validation\Rules\Enum;
 
-class GovernorateResource extends JsonResource
+class SimpleProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +19,7 @@ class GovernorateResource extends JsonResource
         return [
            "id" => $this->id,
            "name" => $this->name ?? null,
-            "price" => $this->price ?? null,
+            "code" => $this->code ?? null,
         ];
     }
 }

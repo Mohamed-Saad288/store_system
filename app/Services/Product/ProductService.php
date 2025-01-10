@@ -86,7 +86,14 @@ class ProductService
                 }
                 $data["image"] = ImageHelper::upload($request->file("image"), "products");
             }
-
+            if ($data["code"] !== $product->code) {
+                $existingProduct = Product::where('code', $data["code"])->first();
+                if ($existingProduct) {
+                    return response()->json([
+                        'error' => 'The code is already in use by another product.'
+                    ], 422);
+                }
+            }
             $product->update($data);
 
             $this->updateProductDescriptions($product, $data["product_descriptions"] ?? []);
