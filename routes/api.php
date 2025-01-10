@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\GovernorateController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'prefix' => "dashboard/v1/",
-        "middleware" => ["auth:sanctum"],
+        "middleware" => ["api"],
     ],
+
+
     function () {
         /* start governorate*/
         Route::controller(GovernorateController::class)->group(function () {
@@ -34,6 +37,7 @@ Route::group(
         });
         /* end governorate */
 
+
         /* start setting*/
         Route::controller(SettingController::class)->group(function () {
             Route::post("store_setting","store_setting");
@@ -43,6 +47,17 @@ Route::group(
             Route::post("delete_setting","delete_setting");
         });
         /* end setting */
+
+
+        /* start product*/
+        Route::controller(ProductController::class)->group(function () {
+            Route::post("store_product","store_product");
+            Route::post("update_product","update_product");
+            Route::post("fetch_products","fetch_products");
+            Route::post("show_product","show_product");
+            Route::post("delete_product","delete_product");
+        });
+        /* end product */
     });
 
 

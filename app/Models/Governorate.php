@@ -12,5 +12,4 @@ class Governorate extends Model
     protected $fillable = ["name"];
     protected $searchable = ["name"];
 
-
 }
