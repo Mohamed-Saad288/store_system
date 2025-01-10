@@ -6,6 +6,7 @@ use App\Enums\ProductStatusEnum;
 use App\Http\Resources\Dashboard\Governorate\GovernorateOrderResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
 
 class OrderDetailsResource extends JsonResource
@@ -22,7 +23,8 @@ class OrderDetailsResource extends JsonResource
             "phone" => $this->phone,
             "city" => $this->city,
             "address" => $this->address,
-            "governorate" => new GovernorateOrderResource($this->governorate ?? null ) ?? null
+            "governorate" => new GovernorateOrderResource($this->governorate ?? null ) ?? null,
+
         ];
     }
 }

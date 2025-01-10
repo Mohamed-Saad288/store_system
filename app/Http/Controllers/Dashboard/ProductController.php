@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function __construct(protected ProductService $product_service){}
-    public function fetch_products(FetchProductRequest $request)
+    public function fetch_products(FetchRequest $request)
     {
         return $this->product_service->fetch($request);
     }

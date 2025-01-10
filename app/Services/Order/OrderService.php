@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use App\Http\Requests\Dashboard\Order\ChangeOrderStatusRequest;
 use App\Http\Requests\Dashboard\Order\OrderRequest;
 use App\Http\Requests\General\FetchRequest;
 use App\Http\Requests\Website\Order\StoreOrderRequest;
@@ -101,7 +102,8 @@ class OrderService
     }
     public function fetch(FetchRequest $request)
     {
-        $order = Order::with("order_details:name,phone")->latest()->paginate(15);
+        $data = $request->validated();
+        $order = Order::search($data)->with("order_details")->latest()->paginate(15);
         return response()->json([
             "status" => true,
             "message" => "تم الوصول لببانات الطلبات بنجاح",
@@ -117,6 +119,18 @@ class OrderService
         return response()->json([
             "status" => true,
             "message" => "تم حذف الطلب بنجاح",
+            "data" => new FetchOrderResource($order)
+        ]);
+    }
+    public function change_order_status(ChangeOrderStatusRequest $request)
+    {
+        $data = $request->validated();
+        $order = Order::findOrFail($data["order_id"]);
+        $order->status = $data['status'];
+        $order->save();
+        return response()->json([
+            "status" => true,
+            "message" => "تم تغيير حالة المنتج بنجاح",
             "data" => new FetchOrderResource($order)
         ]);
     }

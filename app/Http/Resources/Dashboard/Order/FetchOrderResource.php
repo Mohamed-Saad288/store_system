@@ -17,10 +17,10 @@ class FetchOrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // Set the locale to Arabic
         Carbon::setLocale('ar');
 
         return [
+            "id" => $this->id,
             "code" => $this->code,
             "status" => $this->status,
             "OrderDetails" => [

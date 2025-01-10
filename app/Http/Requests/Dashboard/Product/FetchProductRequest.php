@@ -24,8 +24,7 @@ class FetchProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "nullable|string|max:255",
-            "code" => "nullable|string|max:255",
+            "search" => "nullable|string|max:255",
         ];
     }
 }

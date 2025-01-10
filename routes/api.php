@@ -68,6 +68,7 @@ Route::group(
             Route::post("update_order","update_order");
             Route::post("fetch_orders","fetch_orders");
             Route::post("show_order_details","show_order_details");
+            Route::post("change_order_status","change_order_status");
             Route::post("delete_order","delete_order");
         });
         /* end order */
@@ -92,6 +93,7 @@ Route::group(
         /* start product*/
         Route::controller(App\Http\Controllers\Website\ProductController::class)->group(function () {
             Route::post("fetch_products","fetch_products");
+            Route::post("show_product","show_product");
         });
         /* end product */
 

@@ -20,7 +20,7 @@ class ProductService
 {
     use ResponseTrait;
 
-    public function fetch(FetchProductRequest $request)
+    public function fetch(FetchRequest $request)
     {
         $data = $request->validated();
         try {

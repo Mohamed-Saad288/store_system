@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $searchable = ["name","code"];
+    protected $searchable = ["code","name"];
     protected $fillable = [
         "name", "code", "price_before_discount","price_after_discount", "section","status", "image",
     ];
