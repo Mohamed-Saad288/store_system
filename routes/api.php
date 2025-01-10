@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\GovernorateController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,12 @@ Route::group(
             Route::post("fetch_products","fetch_products");
             Route::post("show_product","show_product");
             Route::post("delete_product","delete_product");
+        });
+        /* end product */
+
+        /* start product*/
+        Route::controller(StatisticsController::class)->group(function () {
+            Route::post("fetch_statistics","fetch_statistics");
         });
         /* end product */
 
