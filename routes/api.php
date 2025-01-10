@@ -54,7 +54,7 @@ Route::group(
 
 
         /* start product*/
-        Route::controller(ProductController::class)->group(function () {
+        Route::controller(App\Http\Controllers\Dashboard\ProductController::class)->group(function () {
             Route::post("store_product","store_product");
             Route::post("update_product","update_product");
             Route::post("fetch_products","fetch_products");
@@ -88,5 +88,11 @@ Route::group(
             Route::post("store_order","store_order");
         });
         /* end order */
+
+        /* start product*/
+        Route::controller(App\Http\Controllers\Website\ProductController::class)->group(function () {
+            Route::post("fetch_products","fetch_products");
+        });
+        /* end product */
 
     });
