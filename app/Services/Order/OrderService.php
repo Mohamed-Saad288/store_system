@@ -2,7 +2,10 @@
 
 namespace App\Services\Order;
 
+use App\Http\Requests\Dashboard\Order\OrderRequest;
+use App\Http\Requests\General\FetchRequest;
 use App\Http\Requests\Website\Order\StoreOrderRequest;
+use App\Http\Resources\Dashboard\Order\FetchOrderResource;
 use App\Http\Resources\Dashboard\Order\OrderResource;
 use App\Models\Governorate;
 use App\Models\Order;
@@ -20,13 +23,11 @@ class OrderService
         DB::beginTransaction();
 
         try {
-            // Create the order with default total values
             $order = Order::create([
                 'total' => 0,
                 'total_before_delivery' => 0,
             ]);
 
-            // Create order details
             $orderDetails = OrderDetails::create([
                 "order_id" => $order->id,
                 "name" => $data["name"],
@@ -36,17 +37,13 @@ class OrderService
                 "address" => $data["address"],
             ]);
 
-            // Fetch delivery fee from the governorate
             $delivery = Governorate::findOrFail($orderDetails->governorate_id);
 
-            // Fetch product details
             $productIds = collect($data['products'])->pluck('id');
             $products = Product::whereIn('id', $productIds)->get();
 
-            // Initialize the total before delivery
             $totalBeforeDelivery = 0;
 
-            // Process products and calculate total
             foreach ($data["products"] as $productData) {
                 $product = $products->firstWhere('id', $productData['id']);
                 if (!$product) {
@@ -65,10 +62,8 @@ class OrderService
                 ]);
             }
 
-            // Calculate final total including delivery fee
             $totalPrice = $totalBeforeDelivery + $delivery->price;
 
-            // Update order with final totals
             $order->update([
                 'total' => $totalPrice,
                 'total_before_delivery' => $totalBeforeDelivery,
@@ -79,7 +74,7 @@ class OrderService
             // Return success response
             return response()->json([
                 "status" => true,
-                'message' => 'Order created successfully!',
+                'message' => "تم انشاء الطلب بنجاح",
                 'data' => new OrderResource($order),
             ], 201);
         } catch (\Exception $e) {
@@ -92,6 +87,38 @@ class OrderService
                 'message' => $e->getMessage(),
             ], 500);
         }
+    }
+    public function show(OrderRequest $request)
+    {
+        $data = $request->validated();
+        $order = Order::findOrFail($data["order_id"])->load('products',"order_details","order_products");
+        return response()->json([
+            "status" => true,
+            "message" => "تم الوصول لبانات الطلب بنجاح",
+            "data" => new OrderResource($order),
+        ]);
+
+    }
+    public function fetch(FetchRequest $request)
+    {
+        $order = Order::with("order_details:name,phone")->latest()->paginate(15);
+        return response()->json([
+            "status" => true,
+            "message" => "تم الوصول لببانات الطلبات بنجاح",
+            "data" => FetchOrderResource::collection($order)
+        ]);
+    }
+    public function delete(OrderRequest $request)
+    {
+        $data = $request->validated();
+        $order = Order::findOrFail($data["order_id"]);
+        $order->delete();
+
+        return response()->json([
+            "status" => true,
+            "message" => "تم حذف الطلب بنجاح",
+            "data" => new FetchOrderResource($order)
+        ]);
     }
 
 }

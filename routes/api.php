@@ -67,7 +67,7 @@ Route::group(
         Route::controller(App\Http\Controllers\Dashboard\OrderController::class)->group(function () {
             Route::post("update_order","update_order");
             Route::post("fetch_orders","fetch_orders");
-            Route::post("show_order","show_order");
+            Route::post("show_order_details","show_order_details");
             Route::post("delete_order","delete_order");
         });
         /* end order */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Website\Order;
 
+use App\Enums\OrderStatusEnum;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
@@ -27,6 +28,7 @@ class StoreOrderRequest extends FormRequest
             "name" => ["required", "string", "max:255","min:4"],
             "phone" => ["required", "string", "max:255"],
             "address" => ["required", "string"],
+            "status" => ["nullable", new Enum(OrderStatusEnum::class)],
             "governorate_id" => ["required", "exists:governorates,id"],
             "city" => ["nullable", "string", "max:255"],
             "products"=> ["array", "required"],
